@@ -1,8 +1,45 @@
 body {
   box-sizing: border-box;
   display: grid;
+  grid-template-areas: 
+    "header header header"
+    "previous images next"
+    "navigation navigation navigation";
+  justify-items: center;
+  align-items: center;
+}
+
+h1 {
+  grid-area: header;
+}
+
+.previous {
+  grid-area: previous;
+  justify-self: end;
+}
+
+.image-container {
+  grid-area: images;
 }
 
 .current-image {
   height: 500px;
+}
+
+.next {
+  grid-area: next;
+  justify-self: start;
+}
+
+.navigation-dots-container {
+  grid-area: navigation;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.navigation-dot {
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  background-color: red;
 }

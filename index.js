@@ -48,6 +48,17 @@ const index = (function() {
     },
   ];
 
+  const createNavigationDots = (images, navigationDotsContainer) => {
+    for (let i = 0; i < images.length; i += 1) {
+      let navigationDot = document.createElement('div');
+      navigationDot.dataset.index = i;
+      navigationDot.classList.add('navigation-dot');
+      navigationDotsContainer.appendChild(navigationDot);
+    }
+  };
+
+
   currentImage.src = images[0].src;
   currentImage.alt = images[0].alt;
+  createNavigationDots(images, navigationDotsContainer);
 })();
