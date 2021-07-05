@@ -5,6 +5,7 @@ const index = (function() {
   const next = document.querySelector('.next');
   const navigationDotsContainer = document.querySelector('.navigation-dots-container');
   let navigationDots;
+  let interval;
   let currentIndex = 0;
 
   images = [
@@ -59,20 +60,26 @@ const index = (function() {
     }
   };
 
-  const previousImage = () => {
+  const goToImage = (e) => {
+    clearInterval(interval);
     navigationDots[currentIndex].classList.remove('active');
-    currentIndex = (currentIndex === 0) ? images.length - 1 : currentIndex - 1;
+    if (e === undefined) {
+      currentIndex = (currentIndex === (images.length - 1)) ? 0 : currentIndex + 1;
+    } else if (e.target.classList.contains('next')) {
+      currentIndex = (currentIndex === (images.length - 1)) ? 0 : currentIndex + 1;
+    } else if (e.target.classList.contains('previous')) {
+      currentIndex = (currentIndex === 0) ? images.length - 1 : currentIndex - 1;
+    } else if (e.target.classList.contains('navigation-dot')) {
+      currentIndex = Number(e.target.dataset.index);
+    } 
     currentImage.src = images[currentIndex].src;
     currentImage.alt = images[currentIndex].alt;
     navigationDots[currentIndex].classList.add('active');
-  }
+    startAutomaticScrolling();
+  };
 
-  const nextImage = () => {
-    navigationDots[currentIndex].classList.remove('active');
-    currentIndex = (currentIndex === (images.length - 1)) ? 0 : currentIndex + 1;
-    currentImage.src = images[currentIndex].src;
-    currentImage.alt = images[currentIndex].alt;
-    navigationDots[currentIndex].classList.add('active');
+  const startAutomaticScrolling = () => {
+    interval = setInterval(goToImage, 5000);
   }
 
 
@@ -82,6 +89,9 @@ const index = (function() {
   currentImage.alt = images[currentIndex].alt;
   navigationDots[currentIndex].classList.add('active');
 
-  previous.addEventListener('click', previousImage);
-  next.addEventListener('click', nextImage);
+  previous.addEventListener('click', goToImage);
+  next.addEventListener('click', goToImage);
+  navigationDots.forEach(dot => dot.addEventListener('click', goToImage));
+
+  startAutomaticScrolling();
 })();

@@ -51,6 +51,7 @@ h1 {
   border-radius: 50%;
   border : 1px solid var(--main-color);
   margin: .5em;
+  transition: background-color 250ms ease-in-out;
 }
 
 .navigation-dot.active {
