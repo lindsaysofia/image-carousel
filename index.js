@@ -4,6 +4,8 @@ const index = (function() {
   const currentImage = document.querySelector('.current-image');
   const next = document.querySelector('.next');
   const navigationDotsContainer = document.querySelector('.navigation-dots-container');
+  let navigationDots;
+  let currentIndex = 0;
 
   images = [
     {
@@ -57,8 +59,29 @@ const index = (function() {
     }
   };
 
+  const previousImage = () => {
+    navigationDots[currentIndex].classList.remove('active');
+    currentIndex = (currentIndex === 0) ? images.length - 1 : currentIndex - 1;
+    currentImage.src = images[currentIndex].src;
+    currentImage.alt = images[currentIndex].alt;
+    navigationDots[currentIndex].classList.add('active');
+  }
 
-  currentImage.src = images[0].src;
-  currentImage.alt = images[0].alt;
+  const nextImage = () => {
+    navigationDots[currentIndex].classList.remove('active');
+    currentIndex = (currentIndex === (images.length - 1)) ? 0 : currentIndex + 1;
+    currentImage.src = images[currentIndex].src;
+    currentImage.alt = images[currentIndex].alt;
+    navigationDots[currentIndex].classList.add('active');
+  }
+
+
   createNavigationDots(images, navigationDotsContainer);
+  navigationDots = document.querySelectorAll('.navigation-dot');
+  currentImage.src = images[currentIndex].src;
+  currentImage.alt = images[currentIndex].alt;
+  navigationDots[currentIndex].classList.add('active');
+
+  previous.addEventListener('click', previousImage);
+  next.addEventListener('click', nextImage);
 })();

@@ -1,3 +1,7 @@
+:root {
+  --main-color: white;
+}
+
 body {
   box-sizing: border-box;
   display: grid;
@@ -7,6 +11,9 @@ body {
     "navigation navigation navigation";
   justify-items: center;
   align-items: center;
+  background-color: black;
+  color: var(--main-color);
+  font-family: 'Bungee Inline', cursive;
 }
 
 h1 {
@@ -34,12 +41,29 @@ h1 {
 .navigation-dots-container {
   grid-area: navigation;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
+  width: 100%;
 }
 
 .navigation-dot {
   height: 25px;
   width: 25px;
   border-radius: 50%;
-  background-color: red;
+  border : 1px solid var(--main-color);
+  margin: .5em;
+}
+
+.navigation-dot.active {
+  background-color: var(--main-color);
+}
+
+.previous,
+.next {
+  font-size: 4em;
+}
+
+.previous:hover,
+.next:hover,
+.navigation-dot:hover {
+  cursor: pointer;
 }
